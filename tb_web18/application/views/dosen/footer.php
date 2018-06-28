@@ -43,7 +43,9 @@ $('.dataTables').DataTable({
   $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 });
 
- 
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+}); 
 </script>
 </body>
 </html>

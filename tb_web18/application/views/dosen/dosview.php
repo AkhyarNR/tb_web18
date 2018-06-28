@@ -4,7 +4,7 @@
                         <div class="col-md-12">
                               <div class="card strpied-tabled-with-hover">
                                 <div class="card-header ">
-                                    <div class="card-title"><a href="<?php echo base_url('dosen/mhstambah');?>" role="button" class="btn btn-success btn-fill pull-left" ><i class='fa fa-plus'></i> Tambah</a></div>
+                                    <div class="card-title"><a href="<?php echo base_url('dosen/dostambah');?>" role="button" class="btn btn-success btn-fill pull-left" ><i class='fa fa-plus'></i> Tambah</a></div>
                                     <!--<p class="card-category">Here is a subtitle for this table</p>-->
                                 </div>
                                 <div class="card-body">
@@ -19,36 +19,40 @@
                                     <strong>Gagal!</strong> <?php echo $notif_error ?>
                                   </div>
                                           <?php } 
-                                            $this->table->set_heading(array('No','Nim','Nama','Prodi','Golongan','Aksi'));
+                                            $this->table->set_heading(array('No','NIP','Nama','Prodi','No Handphone','Kuota','Aksi'));
                                                 $no=1;
                                                 foreach ($table as $row) {
-                                                    
+                                                
+                                                if($row->id_prodi==1)
+                                                    $prodi='Teknik Informatika';    
                                                 if($row->id_prodi==2)
                                                     $prodi='Manajemen Informasi';
-                                                if($row->id_gol==1)
-                                                    $gol='A';
-                                                else if($row->id_gol==2)
-                                                    $gol='B';
-                                                else if($row->id_gol==3)
-                                                    $gol='C';
-                                                else if($row->id_gol==4)
-                                                    $gol='D';
-                                                else if($row->id_gol==5)
-                                                    $gol='PLJ';
+                                                if($row->id_prodi==3)
+                                                    $prodi='Teknik Komputer';
+                                                $id_dosen_sess = explode("M", $this->session->userdata('username'));
+                                                if($id_dosen_sess[1]!=$row->id_dosen){
+                                                  $set_koordinator = "<a href='".base_url('dosen/setkoordinator/'.$row->id_dosen)."' class='btn btn-warning btn-sm btn-fill' title='Set Koordinator'>
+                                                    <i class='fa fa-bookmark'></i></a>";
+                                                }else{
+                                                  $set_koordinator = "<a href='".base_url('dosen/gagalset/'.$row->id_dosen)."' class='btn btn-default btn-sm btn-fill' title='Set Koordinator'>
+                                                    <i class='fa fa-bookmark'></i></a>";
+                                                }
                                                 $this->table->add_row(
                                                     $no,
-                                                    array('data' => $row->nim),
-                                                    array('data' => $row->nama_mhs),
+                                                    array('data' => $row->nip),
+                                                    array('data' => $row->nama_dosen),
                                                     array('data' => $prodi),
-                                                    array('data' => $gol),
+                                                    array('data' => $row->no_hp),
+                                                    array('data' => $row->kuota_mhs),
                                                     array('data' => 
-                                                    "<a href='".base_url('dosen/mhsedit/'.$row->nim)."' class='btn btn-primary btn-sm btn-fill' title='Sunting'>
+                                                    "<a href='".base_url('dosen/dosedit/'.$row->id_dosen)."' class='btn btn-primary btn-sm btn-fill' title='Sunting'>
                                                     <i class='fa fa-edit'></i></a>
                                                     <button class='btn btn-danger btn-sm btn-fill' 
-                                                      data-href='".base_url('dosen/mhsdelete/'.$row->nim)."'
-                                                      data-toggle='modal'
-                                                      data-target='#confirm-delete' title='Hapus'>
-                                                      <i class='fa fa-times'></i></button>
+                                                      data-href='".base_url('dosen/dosdelete/'.$row->id_dosen)."' data-toggle='modal' data-target='#confirm-delete' title='Hapus'>
+                                                      <i class='fa fa-times' ></i></button>
+                                                    <a href='".base_url('dosen/dosedit/'.$row->id_dosen)."' class='btn btn-success btn-sm btn-fill' title='Set Reviewer'>
+                                                    <i class='fa fa-calendar-check-o'></i></a>
+                                                     ".$set_koordinator."
                                                       ")
                                                 );
                                                 $no++;
@@ -62,7 +66,7 @@
                                   <div class="modal-dialog modal-dialog-centered">
                                       <div class="modal-content">
                                           <div class="modal-header">
-                                              <h4>Hapus Data Mahasiswa</h4>
+                                              <h4>Hapus Data Dosen</h4>
                                           </div>
                                           <div class="modal-body">
                                               Apakah anda yakin akan menghapus data ini?

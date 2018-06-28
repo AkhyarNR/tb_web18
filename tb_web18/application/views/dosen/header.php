@@ -36,49 +36,66 @@
                         Pengajuan Judul TUGAS AKHIR
                     </a>
                 </div>
+                <?php $id_level_sess= $this->session->userdata('id_level')?>
                 <ul class="nav">
-                    <li>
-                        <a class="nav-link" href="dashboard.html">
+                    
+                    <li <?php if($nav == "dashview" || $nav == "dashchart") 
+                        echo "class='nav-item active'";?>>
+                        <a class="nav-link" href="<?php echo base_url('dosen/dashview')?>">
                             <i class="nc-icon nc-chart-pie-36"></i>
                             <p>Beranda</p>
-                        </a>
+                        </a>  
                     </li>
-                    <li>
-                        <a class="nav-link" href="./user.html">
+                    <?php if($id_level_sess=='1'){?>
+                    <li <?php if($nav == "dosview" || $nav == "dostambah" || $nav == "dosupload" || $nav == "dosedit" ) 
+                        echo "class='nav-item active'";?>>
+                        <a class="nav-link" href="<?php echo base_url('dosen/dosview')?>">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>Dosen</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <?php }?>
+                    <?php if($id_level_sess=='1'){?>
+                    <li <?php if($nav == "mhsview" || $nav == "mhstambah" || $nav == "mhsupload" || $nav == "mhsedit") 
+                        echo "class='nav-item active'";?>>
                         <a class="nav-link" href="<?php echo base_url('dosen/mhsview')?>">
                             <i class="nc-icon nc-single-02"></i>
                             <p>Mahasiswa</p>
                         </a>  
                     </li>
-                    <li>
-                        <a class="nav-link" href="./typography.html">
+                    <?php }?>
+                    <li <?php if($nav == "usulview" || $nav == "usultambah" || $nav == "usuledit") 
+                        echo "class='nav-item active'";?>>
+                        <a class="nav-link" href="<?php echo base_url('dosen/usulview')?>">
                             <i class="nc-icon nc-notes"></i>
                             <p>Usulan</p>
-                        </a>
+                        </a>  
                     </li>
+
+                    <?php if($id_level_sess=='1'){?>
                     <li>
                         <a class="nav-link" href="./icons.html">
                             <i class="nc-icon nc-single-copy-04"></i>
                             <p>Ulasan</p>
                         </a>
                     </li>
-                    <li>
-                        <a class="nav-link" href="./maps.html">
+                    <?php } ?>
+                    <li <?php if($nav == "bimview") 
+                        echo "class='nav-item active'";?>>
+                        <a class="nav-link" href="<?php echo base_url('dosen/bimview')?>">
                             <i class="nc-icon nc-badge"></i>
                             <p>Bimbingan</p>
-                        </a>
+                        </a>  
                     </li>
+
+                    <?php if($id_level_sess=='1'){?>
                     <li>
                         <a class="nav-link" href="./notifications.html">
                             <i class="nc-icon nc-settings-tool-66"></i>
                             <p>Pengaturan</p>
                         </a>
                     </li>
+                    <?php } ?> 
                     <li class="nav-item active active-pro">
                         <a class="nav-link active" href="dosen/logout">
                             <i class="nc-icon nc-button-power"></i>
@@ -104,8 +121,7 @@
 
                         <ul class="navbar-nav ml-auto">
                             <?php
-                            switch ($nav) {
-                                case "mhsview" || "mhstambah" || "mhsupload" :
+                            if($nav == "mhsview" || $nav == "mhstambah" || $nav == "mhsupload" || $nav == "mhsedit"){
                                         echo "<li class='nav-item'>
                                             <a class='nav-link' href='".base_url('dosen/mhsview')."'>
                                                 <span class='no-icon'>Lihat Data</span>
@@ -121,23 +137,43 @@
                                                 <span class='no-icon'>Unggah Data</span>
                                             </a>
                                         </li>";
-                                    break;
+                            }elseif($nav == "dosview" || $nav == "dostambah" || $nav == "dosupload" || $nav == "dosedit"){
+                                        echo "<li class='nav-item'>
+                                            <a class='nav-link' href='".base_url('dosen/dosview')."'>
+                                                <span class='no-icon'>Lihat Data</span>
+                                            </a>
+                                        </li>";
+                                        echo "<li class='nav-item'>
+                                            <a class='nav-link' href='".base_url('dosen/dostambah')."'>
+                                                <span class='no-icon'>Tambah Data</span>
+                                            </a>
+                                        </li>";
+                                        echo "<li class='nav-item'>
+                                            <a class='nav-link' href='".base_url('dosen/dosupload')."'>
+                                                <span class='no-icon'>Unggah Data</span>
+                                            </a>
+                                        </li>";
+                            }elseif($nav == "usulview" || $nav == "usultambah" || $nav == "usuledit"){
+                                        echo "<li class='nav-item'>
+                                            <a class='nav-link' href='".base_url('dosen/usulview')."'>
+                                                <span class='no-icon'>Lihat Data</span>
+                                            </a>
+                                        </li>";
+                                        echo "<li class='nav-item'>
+                                            <a class='nav-link' href='".base_url('dosen/usultambah')."'>
+                                                <span class='no-icon'>Tambah Data</span>
+                                            </a>
+                                        </li>";
+                            }
 
-                                default:
-                                    echo "<li class='nav-item'>
-                                        <a class='nav-link' href='#'>
-                                            <span class='no-icon'>Kosong</span>
-                                        </a>
-                                    </li>";
-                                    break;
-                                }
+                            
                             ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="no-icon"><?php echo $status?></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Pengaturan</a>
+                                    <a class="dropdown-item" href="#">Ganti Password</a>
                                     <div class="divider"></div>
                                     <a class="dropdown-item" href="<?php echo base_url('dosen/logout')?>">Keluar</a>
                                 </div>

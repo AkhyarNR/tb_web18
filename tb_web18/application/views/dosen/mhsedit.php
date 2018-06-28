@@ -1,10 +1,9 @@
- <div class="content">
+     <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Input Mahasiswa</h4>
                                 </div>
                                 <div class="card-body">
                                     <?php $nim= $table->nim; ?>

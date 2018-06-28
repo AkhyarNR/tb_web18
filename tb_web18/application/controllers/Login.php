@@ -21,8 +21,12 @@ class Login extends CI_Controller {
 
 	public function cek()
 	{
-		if(@$this->session->userdata('username')){
-			redirect(base_url('dosen/mhsview'));
+		if($this->session->userdata('id_level')==1){
+			redirect(base_url('dosen/dashview'));
+		}elseif($this->session->userdata('id_level')==2){
+			redirect(base_url('dosen/dashview'));
+		}elseif($this->session->userdata('id_level')==3){
+			redirect(base_url('mahasiswa/dashview'));
 		}
 	}
 }

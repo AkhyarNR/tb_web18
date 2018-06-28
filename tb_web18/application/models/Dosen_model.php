@@ -33,7 +33,8 @@ class Dosen_model extends CI_Model {
 	     return "success";
 	    }
 	    else{
-	     return "failed";
+	     $error = $this->db->error();
+		 return $error['message'];
 	    }
 	}
 
@@ -44,7 +45,8 @@ class Dosen_model extends CI_Model {
 	     return "success";
 	    }
 	    else{
-	     return "failed";
+	     $error = $this->db->error();
+		 return $error['message'];
 	    }
 	}
 

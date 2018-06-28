@@ -1442,6 +1442,7 @@ fieldset[disabled] .btn-neutral.active {
     font-size: 12px;
     border-radius: 3px;
     padding: 5px 10px;
+    margin-bottom: 4px;
 }
 
 .btn-sm.btn-round {

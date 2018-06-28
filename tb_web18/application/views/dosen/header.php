@@ -72,12 +72,13 @@
                         </a>  
                     </li>
 
-                    <?php if($id_level_sess=='1'){?>
-                    <li>
-                        <a class="nav-link" href="./icons.html">
+                    <?php if($id_level_sess=='1' || $id_level_sess=='4'){?>
+                    <li <?php if($nav == "ulasview") 
+                        echo "class='nav-item active'";?>>
+                        <a class="nav-link" href="<?php echo base_url('dosen/ulasview')?>">
                             <i class="nc-icon nc-single-copy-04"></i>
                             <p>Ulasan</p>
-                        </a>
+                        </a>  
                     </li>
                     <?php } ?>
                     <li <?php if($nav == "bimview") 

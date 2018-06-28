@@ -721,6 +721,70 @@ public function dosview()
 /* ============================== END MENU BIMBINGAN ============================== */
 
 
+
+/* ==================== MENU ULASAN ==================== */
+
+	public function ulasview()
+	{
+		if($this->session->userdata('id_level')=='1' || $this->session->userdata('id_level')=='4'){
+			if($this->session->flashdata('success')){
+				$notif = $this->session->flashdata('success');
+				$notif_error ="kosong";
+			}elseif($this->session->flashdata('error')){
+				$notif_error = $this->session->flashdata('error');
+				$notif ="kosong";
+			}else{
+				$notif ="";
+				$notif_error ="";
+			}
+
+		$id_dosen_sess = explode("M", $this->session->userdata('username'));
+		$data = array(
+			'nav' => 'ulasview',
+			'title' => 'Data Usulan Judul Mahasiswa',
+			'dosen' =>  $this->Dosen_model->getData('tb_dosen'),
+			'status' => $this->session->userdata('status'),
+			'table' => $this->Dosen_model->getData('tb_judul'),
+			'notif' => $notif,
+			'notif_error' => $notif_error,
+		);
+		$this->load->view('dosen/header',$data);
+		$this->load->view('dosen/ulasview', $data);
+		$this->load->view('dosen/footer',$data);
+		}else{
+			$this->session->set_flashdata('error_akses', 'Anda tidak memiliki hak akses');
+			redirect(base_url(''));
+		}
+	
+	}
+
+	public function ulasinsert()
+	{
+		if($this->session->userdata('id_level')=='1'){
+		$id_dosen_sess = explode("M", $this->session->userdata('username'));	
+		$data = array(
+			'id_review' => '',
+			'id_judul' => $this->input->post('id_judul'), 
+			'id_dosen' => $id_dosen_sess[1],
+			'review' => $this->input->post('ulasan'),
+			'status' => $this->input->post('status')
+		);
+		$result = $this->Dosen_model->insert('tb_review',$data);
+		if($result == "success"){
+			$notif = $this->session->set_flashdata('success', 'Berhasil di tambahkan!');
+			redirect(base_url('dosen/ulasview'));
+		}else{
+			$notif = $this->session->set_flashdata('error', $result);
+			redirect(base_url('dosen/ulasview'));
+		}
+		}else{
+		$this->session->set_flashdata('error_akses', 'Anda tidak memiliki hak akses');
+		redirect(base_url(''));
+		}
+	}
+
+/* ============================== END MENU ULASAN ============================== */
+
 }
 
 /* End of file Dosen.php */
